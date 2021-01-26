@@ -102,7 +102,7 @@ class block_course_participants_testcase extends advanced_testcase {
 
         $this->assertInstanceOf('\block_course_participants', $block);
     }
-    
+
     /**
      * Test block available in course context
      */
@@ -110,7 +110,7 @@ class block_course_participants_testcase extends advanced_testcase {
         $generator = $this->getDataGenerator();
         $course = $generator->create_course();
         $page = self::construct_page($course);
-        
+
         $addableblocks = $page->blocks->get_addable_blocks();
 
         $this->assertArrayHasKey('course_participants', $addableblocks);
@@ -145,14 +145,14 @@ class block_course_participants_testcase extends advanced_testcase {
         // Test individual attributes as some are added by intervening machinery
         $retrievedusers = $block->participants;
         foreach ([
-            'id', 
-            'username', 
-            'firstname', 
-            'lastname', 
-            'email', 
-            'lastnamephonetic', 
-            'firstnamephonetic', 
-            'middlename', 
+            'id',
+            'username',
+            'firstname',
+            'lastname',
+            'email',
+            'lastnamephonetic',
+            'firstnamephonetic',
+            'middlename',
             'alternatename',
         ] as $testattribute) {
             foreach ($retrievedusers as $key => $retrieveduser) {

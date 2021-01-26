@@ -79,8 +79,7 @@ class block_course_participants extends block_list {
                 'course' => $this->page->course->id,
                 'deletioninprogress' => 0,
             ]);
-            if (isset($_GET['debug'])) echo '<br /><br /><br /><pre>'.print_r($result, true).'</pre>';
-            if (count($result)) {
+             if (count($result)) {
                 $result = array_pop($result);
                 $presencecmid = $result->id;
             } else {
