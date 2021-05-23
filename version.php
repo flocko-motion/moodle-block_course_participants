@@ -22,6 +22,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019032702;            // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2019041701;            // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2018120302;            // Requires this Moodle version.
 $plugin->component = 'block_course_participants'; // Full name of the plugin (used for diagnostics).

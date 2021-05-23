@@ -89,30 +89,34 @@ class block_course_participants extends block_list {
             $presencecmid = null;
         }
 
-        $viewpresenceprofile = has_any_capability( ['mod/presence:viewreports'], $this->context);
-
         $this->content = new stdClass();
         $this->content->items = array();
-        foreach ($this->participants as $participant) {
-            if ($viewpresenceprofile) {
-                if ($presencecmid) {
-                    $url = new moodle_url(
-                        '/mod/presence/userprofile.php',
-                        ['id' => $presencecmid, 'userid' => $participant->id]
-                    );
-                } else {
-                    $url = new moodle_url(
-                        '/user/view.php',
-                        ['id' => $participant->id, 'course' => $this->page->course->id]
-                    );
+        $participants = $this->participants;
+        if ($participants) {
+            usort($participants, function($a, $b) {
+                $cmp = strcmp($a->firstname, $b->firstname);
+                if ($cmp == 0) {
+                    $cmp =  strcmp($a->lastname, $b->lastname);
                 }
-                $this->content->items[] = html_writer::link(
-                    $url,
-                    fullname($participant)
+                return $cmp;
+            });
+        }
+        foreach ($participants as $participant) {
+            if ($presencecmid) {
+                $url = new moodle_url(
+                    '/local/streetcollege/userprofile.php',
+                    ['userid' => $participant->id]
                 );
             } else {
-                $this->content->items[] = fullname($participant);
+                $url = new moodle_url(
+                    '/local/streetcollege.php',
+                    ['userid' => $participant->id, 'course' => $this->page->course->id]
+                );
             }
+            $this->content->items[] = html_writer::link(
+                $url,
+                fullname($participant).' '.$participant->idnumber
+            );
         }
 
         $this->content->icons = array();
